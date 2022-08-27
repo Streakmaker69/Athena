@@ -5,8 +5,11 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 import os
+import time
 import spotipy
 import json
+import wolframalpha
+import requests
 
 username = '......................'
 clientID = '...........................'
