@@ -132,8 +132,8 @@ while True:
     elif 'ask' in query:
         speak('I can answer to computational and geographical questions  and what question do you want to ask now')
         question=takeCommand()
-        app_id="XV4X4P-EVWTXPTH6E"
-        client = wolframalpha.Client('XV4X4P-EVWTXPTH6E')
+        app_id="..........."
+        client = wolframalpha.Client('.........')
         res = client.query(question)
         answer = next(res.results).text
         print(answer)
