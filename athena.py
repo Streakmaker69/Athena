@@ -106,10 +106,55 @@ while True:
         song = song_items[0]['external_urls']['spotify']
         webbrowser.open(song)
         print('Song has opened in your browser.')
-    elif 'the time' in query:
+       elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M")
             print(f"The time is : {strTime}")
             speak(f"The time is {strTime}")
     elif 'open discord' in query:
             dis = "C:\\Users\\prana\\AppData\\Local\\Discord\\Update.exe"
             os.startfile(dis)
+    elif 'weather' in query:
+        speak("The weather is:")
+    elif 'search'  in query:
+            query = query.replace("search", "")
+            webbrowser.open_new_tab(query)
+            time.sleep(5)
+    elif 'news' in query:
+            news = webbrowser.open_new_tab("https://timesofindia.indiatimes.com/home/headline")
+            speak('Here are some headlines from the Times of India, Happy reading!')
+            time.sleep(6)
+    elif 'ask' in query:
+        speak('I can answer to computational and geographical questions  and what question do you want to ask now')
+        question=takeCommand()
+        app_id="XV4X4P-EVWTXPTH6E"
+        client = wolframalpha.Client('XV4X4P-EVWTXPTH6E')
+        res = client.query(question)
+        answer = next(res.results).text
+        print(answer)
+        speak(answer)
+    elif "weather" in query:
+            api_key="Apply your unique ID"
+            base_url="https://api.openweathermap.org/data/2.5/weather?"
+            speak("what is the city name")
+            city_name=takeCommand()
+            complete_url=base_url+"appid="+api_key+"&q="+city_name
+            response = requests.get(complete_url)
+            x=response.json()
+            if x["cod"]!="404":
+                y=x["main"]
+                current_temperature = y["temp"]
+                current_humidiy = y["humidity"]
+                z = x["weather"]
+                weather_description = z[0]["description"]
+                print(" Temperature in kelvin unit = " +
+                      str(current_temperature) +
+                      "\n humidity (in percentage) = " +
+                      str(current_humidiy) +
+                      "\n description = " +
+                      str(weather_description))
+                speak(" Temperature in kelvin unit is " +
+                      str(current_temperature) +
+                      "\n humidity in percentage is " +
+                      str(current_humidiy) +
+                      "\n description  " +
+                      str(weather_description))
