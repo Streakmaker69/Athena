@@ -1,4 +1,6 @@
 from ast import main
+from twilio.rest import Client
+from ecapture import ecapture as ec
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -10,6 +12,7 @@ import spotipy
 import json
 import wolframalpha
 import requests
+import pyjoke
 
 username = '......................'
 clientID = '...........................'
@@ -135,29 +138,77 @@ while True:
         answer = next(res.results).text
         print(answer)
         speak(answer)
-    elif "weather" in query:
-            api_key="Apply your unique ID"
+        elif "weather" in query:
+            api_key=".............................................."
             base_url="https://api.openweathermap.org/data/2.5/weather?"
             speak("what is the city name")
             city_name=takeCommand()
             complete_url=base_url+"appid="+api_key+"&q="+city_name
             response = requests.get(complete_url)
             x=response.json()
-            if x["cod"]!="404":
-                y=x["main"]
+            complete_url = base_url + "appid =" + api_key + "&q =" + city_name
+            response = requests.get(complete_url)
+            x = response.json()
+
+            if x["cod"] != "404":
+                y = x["main"]
                 current_temperature = y["temp"]
+                current_pressure = y["pressure"]
                 current_humidiy = y["humidity"]
                 z = x["weather"]
                 weather_description = z[0]["description"]
-                print(" Temperature in kelvin unit = " +
-                      str(current_temperature) +
-                      "\n humidity (in percentage) = " +
-                      str(current_humidiy) +
-                      "\n description = " +
-                      str(weather_description))
-                speak(" Temperature in kelvin unit is " +
-                      str(current_temperature) +
-                      "\n humidity in percentage is " +
-                      str(current_humidiy) +
-                      "\n description  " +
-                      str(weather_description))
+                print(" Temperature (in kelvin unit) = " +str(current_temperature)+"\n atmospheric pressure (in hPa unit) ="+str(current_pressure) +"\n humidity (in percentage) = " +str(current_humidiy) +"\n description = " +str(weather_description))
+             
+            else:
+                speak(" City Not Found ")
+    elif 'good job' in query:
+        speak("Thank You for the compliments!" )
+    elif "who i am" in query:
+            speak("If you talk then definitely your Homo Sapien.")
+    elif "why you came to world" in query:
+            speak("Thanks to Streakmaker. Further it's a secret.")  
+    elif "where is" in query:
+            query = query.replace("where is", "")
+            location = query
+            speak("User asked to Locate")
+            speak(location)
+            webbrowser.open("https://www.google.nl / maps / place/" + location + "")
+    elif "camera" in query or "take a photo" in query:
+        ec.capture(0, "Athena Camera ", "img.jpg")
+    elif "write a note" in query:
+            speak("What should i write, sir")
+            note = takeCommand()
+            file = open('jarvis.txt', 'w')
+            speak("Sir, Should i include date and time")
+            snfm = takeCommand()
+            if 'yes' in snfm or 'sure' in snfm:
+                strTime = datetime.datetime.now().strftime("% H:% M:% S")
+                file.write(strTime)
+                file.write(" :- ")
+                file.write(note)
+            else:
+                file.write(note)
+    elif "show note" in query:
+            speak("Showing Notes")
+            file = open("jarvis.txt", "r")
+            print(file.read())
+            speak(file.read(6))
+    elif "send message " in query:
+                account_sid = '...............................'
+                auth_token = '.................................'
+                client = Client(account_sid, auth_token)
+ 
+                message = client.messages \
+                                .create(
+                                    body = takeCommand(),
+                                    from_='Sender No',
+                                    to ='Receiver No'
+                                )
+ 
+                print(message.sid)
+    elif 'joke' in query:
+        joke = pyjokes.get_joke()
+        print(joke)
+        speak(joke)
+    elif "who are you" in query:
+            speak("I am a virtual assistant created by Streakmaker.")
