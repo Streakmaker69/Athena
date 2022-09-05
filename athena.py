@@ -211,4 +211,16 @@ while True:
         print(joke)
         speak(joke)
     elif "who are you" in query:
-            speak("I am a virtual assistant created by Streakmaker.")
+            speak("I am a virtual assistant created by Streakmaker Sixty-Nine.")
+     elif "facebook" in query:
+       webbrowser.open("https://www.facebook.com/")
+    elif "twitter" in query :
+       webbrowser.open("https://twitter.com/home")
+    elif "instagram" in query :
+        webbrowser.open("https://www.instagram.com/")
+    elif "github" in query :
+        webbrowser.open("https://github.com/")
+    elif "open mail" in query :
+        webbrowser.open("https://mail.google.com/mail/u/0/#inbox")
+    elif "open songs" in query:
+        webbrowser.open("https://open.spotify.com/collection/tracks")
