@@ -12,7 +12,7 @@ import spotipy
 import json
 import wolframalpha
 import requests
-import pyjoke
+import pyjokes
 
 username = '......................'
 clientID = '...........................'
